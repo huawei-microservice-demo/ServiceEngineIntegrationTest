@@ -1,0 +1,43 @@
+cse-config-order: 100
+APPLICATION_ID: vkapp
+service_description:
+  name: product-service
+  version: 0.0.1
+cse:
+  service:
+    registry:
+      address: http://100.101.123.95:30100
+      instance:
+        watch: false
+  config:
+    client:
+      serverUri: http://100.101.123.95:30103
+      refreshMode: 1
+      refresh_interval: 5000
+#  monitor:
+#    client:
+#      serverUri: https://cse.cn-north-1.myhwclouds.com:443
+#  credentials:
+#    accessKey: 670WKUPXTZE3Z8Y0N8VR
+#    secretKey: YGGzjw6ommpqbA7AaeaxUOlVennIccER6l8U5jDZ
+#    akskCustomCipher: default
+
+  rest:
+    address: 0.0.0.0:8089
+    server:
+      thread-count: 10
+
+  tcc:
+    transaction:
+      repository: com.huawei.paas.cse.tcc.repository.RedisTransactionRepository
+      redis:
+        host: 192.168.244.178
+        port: 6379
+        password: Huawei@123
+
+  handler:
+    chain:
+      Provider:
+        default: perf-stats,qps-flowcontrol-provider,bizkeeper-provider,tcc-provider,twoPC-provider
+      Consumer:
+        default: perf-stats,qps-flowcontrol-consumer,loadbalance,bizkeeper-consumer,tcc-consumer,twoPC-consumer

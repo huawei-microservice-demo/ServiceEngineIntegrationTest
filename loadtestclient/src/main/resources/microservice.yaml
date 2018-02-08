@@ -1,0 +1,37 @@
+cse-config-order: 100
+APPLICATION_ID: vkapp
+service_description:
+  name: loadtestclient
+  version: 0.0.1
+cse:
+  service:
+    registry:
+      address: http://100.101.123.95:30100
+      instance:
+        watch: false
+        healthCheck:
+          interval: 5
+  config:
+    client:
+      serverUri: http://100.101.123.95:30103
+      refreshMode: 1
+      refresh_interval: 5000
+#  monitor:
+#    client:
+#      serverUri: https://cse.cn-north-1.myhwclouds.com:443
+#  credentials:
+#    accessKey: 670WKUPXTZE3Z8Y0N8VR
+#    secretKey: YGGzjw6ommpqbA7AaeaxUOlVennIccER6l8U5jDZ
+#    akskCustomCipher: default
+
+  rest:
+    address: 0.0.0.0:8088
+    server:
+      thread-count: 10
+
+  handler:
+    chain:
+      Provider:
+        default: perf-stats
+      Consumer:
+        default: perf-stats,loadbalance
